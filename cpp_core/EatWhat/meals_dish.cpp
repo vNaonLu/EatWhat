@@ -4,7 +4,11 @@
 
 namespace vnaon_meals {
 
-	MealPicking::MealPicking(const std::string &arg_name, const std::string &arg_address, MealFilter::Shared arg_filter) {
+	MealPicking::MealPicking(
+		const std::string &arg_name,
+		const std::string &arg_address, 
+		MealFilter::Shared arg_filter
+	) {
 		this->name_ = arg_name;
 		this->address_ = arg_address;
 		this->filter_ = arg_filter->Clone();
@@ -45,13 +49,17 @@ namespace vnaon_meals {
 		return MealPicking::Create(this->name_, this->address_, this->filter_->Clone());
 	}
 
-	MealPicking::Shared MealPicking::Create(const std::string &arg_name, const std::string &arg_address, MealFilter::Shared arg_filter) {
+	MealPicking::Shared MealPicking::Create(
+		const std::string &arg_name,
+		const std::string &arg_address, 
+		MealFilter::Shared arg_filter
+	) {
 		return std::make_shared<MealPicking>(arg_name, arg_address, arg_filter);
 	}
 
 	bool MealPicking::operator==(const MealPicking::Shared &arg) {
 		// TODO: address.
-		return this->name_ == arg->GetName();
+		return this->name_ == arg->name_ && this->address_ == arg->address_;
 	}
 
 }

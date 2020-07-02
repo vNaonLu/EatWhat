@@ -1,33 +1,35 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include <memory>
+#include <string>
 
 
 namespace vnaon_meals {
 
 
 	class MealFilter {
+	private:
+		typedef int FilterIdentifier;
+		static std::map<std::string, FilterIdentifier> filter_name;
 	public:
 		typedef std::shared_ptr<MealFilter> Shared;
 		typedef std::unique_ptr<MealFilter> Unique;
-		enum class MEAL_TYPE {
-			kUndefine// TODO: fill type
-		};
 		const static int kMaxFilterCount;
 
 	private:
-		std::vector<MEAL_TYPE> filter_;
+		std::vector<FilterIdentifier> filter_;
 		
 	public:
 		MealFilter();
 		~MealFilter();
 
-		void Push(const MEAL_TYPE &arg_type);
-		void Erase(const MEAL_TYPE &arg_type);
+		void Push(const std::string &arg_type);
+		void Erase(const std::string &arg_type);
 		void Clear();
 
-		bool Match(const MEAL_TYPE &arg_type) const;
+		bool Match(const FilterIdentifier &arg_type) const;
 		bool Match(const MealFilter::Shared &arg_filter) const;
 		MealFilter::Unique Clone() const;
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <random>
 #include <vector>
 
 
@@ -13,22 +14,22 @@ namespace vnaon_meals {
 	class MealSelector {
 	private:
 		const static int kMaxPickingsCount;
-		std::vector<MealPicking::Shared> pickings_;
+		static std::default_random_engine random_generator;
 
 	public:
 		MealSelector();
 		~MealSelector();
 
-		MealPicking::Shared Select(const MealFilter::Shared &arg_filter = nullptr) const;
-
-		void PushDishes(MealPicking::Shared arg_pickings);
-		void ClearDishes();
-		bool ExistDish(MealPicking::Shared arg_pickings) const;
-
-		std::vector<MealPicking::Shared> Dump() const;
+		MealPicking::Shared Select(
+			const std::vector<MealPicking::Shared> &arg_pickings,
+			const MealFilter::Shared &arg_filter
+		);
 
 	private:
-		std::vector<MealPicking::Shared> MatchedPickings(const MealFilter::Shared &arg_filter) const;
+		const std::vector<MealPicking::Shared> MatchedPickings(
+			const std::vector<MealPicking::Shared> &arg_pickings,
+			const MealFilter::Shared &arg_filter
+		) const;
 
 	};
 
