@@ -9,31 +9,34 @@
 namespace vnaon_meals {
 
 
-	class MealFilter {
-	private:
-		typedef int FilterIdentifier;
-		static std::map<std::string, FilterIdentifier> filter_name;
-	public:
-		typedef std::shared_ptr<MealFilter> Shared;
-		typedef std::unique_ptr<MealFilter> Unique;
-		const static int kMaxFilterCount;
+	extern "C" {
+		class MealFilter {
+		private:
+			typedef int FilterIdentifier;
+			static FilterIdentifier filter_hash;
+			static std::map<std::string, FilterIdentifier> filter_name;
+		public:
+			typedef std::shared_ptr<MealFilter> Shared;
+			typedef std::unique_ptr<MealFilter> Unique;
+			const static int kMaxFilterCount;
 
-	private:
-		std::vector<FilterIdentifier> filter_;
-		
-	public:
-		MealFilter();
-		~MealFilter();
+		private:
+			std::vector<FilterIdentifier> filter_;
 
-		void Push(const std::string &arg_type);
-		void Erase(const std::string &arg_type);
-		void Clear();
+		public:
+			MealFilter();
+			~MealFilter();
 
-		bool Match(const FilterIdentifier &arg_type) const;
-		bool Match(const MealFilter::Shared &arg_filter) const;
-		MealFilter::Unique Clone() const;
+			void Push(const std::string &arg_type);
+			void Erase(const std::string &arg_type);
+			void Clear();
 
-		static MealFilter::Shared Create();
-	};
+			bool Match(const FilterIdentifier &arg_type) const;
+			bool Match(const MealFilter::Unique &arg_filter) const;
+			MealFilter::Unique Clone() const;
+
+			static MealFilter::Shared Create();
+		};
+	}
 
 }

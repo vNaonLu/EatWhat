@@ -4,7 +4,8 @@
 
 namespace vnaon_meals {
 
-	const int MealFilter::kMaxFilterCount = 1;
+	const int MealFilter::kMaxFilterCount = 10;
+	int MealFilter::filter_hash = 0;
 	std::map<std::string, int> MealFilter::filter_name = std::map<std::string, int>();
 	MealFilter::MealFilter() {
 		this->filter_.reserve(MealFilter::kMaxFilterCount);
@@ -14,14 +15,17 @@ namespace vnaon_meals {
 	}
 
 	void MealFilter::Push(const std::string &arg_type) {
+		FilterIdentifier type_identifier = -1;
 		if ( MealFilter::filter_name.count(arg_type) > 0 ) {
-			//Has type in map.
-			FilterIdentifier type_identifier = MealFilter::filter_name.at(arg_type);
-			if ( !Match(type_identifier) && 
-				this->filter_.size() < MealFilter::kMaxFilterCount ) {
-				// Does not have the filter arg_type.
-				this->filter_.push_back(type_identifier);
-			}
+			type_identifier = MealFilter::filter_name.at(arg_type);
+		} else {
+			MealFilter::filter_name[arg_type] = MealFilter::filter_hash++;
+			type_identifier = MealFilter::filter_name.at(arg_type);
+		}
+
+		if ( !Match(type_identifier) &&
+			this->filter_.size() < MealFilter::kMaxFilterCount ) {
+			this->filter_.push_back(type_identifier);
 		}
 	}
 
@@ -46,7 +50,7 @@ namespace vnaon_meals {
 		return  iterator != this->filter_.cend();
 	}
 
-	bool MealFilter::Match(const MealFilter::Shared &arg_filter) const {
+	bool MealFilter::Match(const MealFilter::Unique &arg_filter) const {
 		// TODO: more effectiveness, now O(n2)
 		bool match_ret = true;
 		for ( auto filter : this->filter_ ) {

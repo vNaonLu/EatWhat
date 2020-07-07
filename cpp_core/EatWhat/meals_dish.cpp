@@ -42,7 +42,7 @@ namespace vnaon_meals {
 	}
 
 	bool MealPicking::MatchFilter(const MealFilter::Shared &arg_filter) const {
-		return this->filter_->Match(arg_filter);
+		return arg_filter->Match(this->filter_);
 	}
 
 	MealPicking::Shared MealPicking::Clone() const {

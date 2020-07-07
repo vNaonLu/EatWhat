@@ -26,6 +26,7 @@ namespace vnaon_meals {
 		bool RemoveDish(MealPicking::Shared arg_dish);
 		void ClearDish();
 		int ExistDish(MealPicking::Shared arg_dish);
+		bool IsEmpty() const;
 
 		MealPicking::Shared Select(MealFilter::Shared arg_filter = nullptr);
 	};

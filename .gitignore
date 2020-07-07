@@ -3,5 +3,6 @@
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-test.cpp
 out/
+EatWhatCommand/
+

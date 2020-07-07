@@ -57,6 +57,10 @@ namespace vnaon_meals {
 		return ret;
 	}
 
+	bool MealManager::IsEmpty() const {
+		return this->input_dishes_.empty();
+	}
+
 	MealPicking::Shared MealManager::Select(MealFilter::Shared arg_filter) {
 		MealSelector selector;
 		return selector.Select(this->input_dishes_, arg_filter);
