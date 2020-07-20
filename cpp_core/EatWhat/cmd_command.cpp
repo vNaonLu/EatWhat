@@ -58,7 +58,7 @@ namespace vnaon_cmd {
 					if ( token == current_trim.front() ) {
 						token_char = token;
 						if ( token == current_trim.back()) {
-							temp_string = current_trim.substr(1, current_trim.size() - 1);
+							temp_string = current_trim.substr(1, current_trim.size() - 2);
 							token_char = '\0';
 						} else {
 							temp_string = current_trim.substr(1);
