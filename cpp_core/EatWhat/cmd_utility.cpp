@@ -10,7 +10,7 @@ namespace vnaon_cmd {
 
 	const char *Utility::kSperateLine = "===========================================";
 	const char *Utility::kTitle = "EatWhat";
-	const char *Utility::kVersion = "1.0";
+	const char *Utility::kVersion = "1.1";
 	const char *Utility::kUsage = R"(
    Usage:
       eat_what %s %s <name> [%s <address> |  %s <filter1\filter2...>]
